@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css">
+        <link rel='stylesheet' href='../../lib/ui-select/dist/select.min.css'>
+    </head>
+    
+    <body ng-app='angularApp' ng-controller='controller1'>
+        <div class='container'>
+            <div class='jumbotron row'>
+                <div class='col-md-12'>
+                    <pre>
+                        1. select <span class='label label-success'>country</span> from dropdown menu
+                           (the view model property will be updated)
+                        2. the directive bound to the view model will be updated
+                           (both in the shared scope directive and oneway scope directive)
+                    </pre>
+                </div>
+                <div class='col-md-12'>
+
+                    <h3>Selectize theme</h3>
+                    <span>Select Country: <span class='label label-success' ng-bind='country.selected.name'></span></span>
+                      <ui-select ng-model="country.selected" ng-disabled="disabled" search-enabled="false" style="width: 300px;">
+                        <ui-select-match class='ui-select-match' placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices class='ui-select-choices' repeat="country in countries | filter: $select.search">
+                          <span ng-bind-html="country.name | highlight: $select.search"></span>
+                          <small ng-bind-html="country.code | highlight: $select.search"></small>
+                        </ui-select-choices>
+                      </ui-select>
+                </div>
+                <div class='col-md-6'>
+                      <h5>Directive - Shared Scope</h5>
+                      <shared-scope></shared-scope>
+                </div>
+                <div class='col-md-6'>
+                      <h5>Directive - Oneway Scope</h5>
+                      <oneway-scope display-value='{{country.selected.name}}'></oneway-scope>                    
+                </div>
+            </div>
+        </div>
+<!--        <script type='text/javascript' src='../../lib/jquery/dist/jquery.min.js'></script>-->
+        <script type='text/javascript' src='../../lib/lodash/dist/lodash.min.js'></script>
+        <script type='text/javascript' src='../../lib/angular/angular.js'></script>
+        <script type='text/javascript' src='../../lib/angular-sanitize/angular-sanitize.min.js'></script>
+        
+        <script type='text/javascript' src='../../lib/ui-select/dist/select.min.js'></script>
+        
+        <script type="text/javascript" src='app.js'></script>
+    </body>
+</html>
